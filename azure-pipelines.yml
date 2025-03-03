@@ -4,16 +4,12 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-strategy:
-  matrix:
-    Python311:
-      python.version: '3.11'
 
 steps:
   - task: UsePythonVersion@0
     inputs:
-      versionSpec: '$(python.version)'
-    displayName: 'Use Python $(python.version)'
+      versionSpec: '3.11'
+    displayName: 'Use Python 3.11'
 
   - script: |
       python -m pip install --upgrade pip
@@ -26,7 +22,7 @@ steps:
       rootFolderOrFile: $(System.DefaultWorkingDirectory)
       includeRootFolder: false
       archiveType: zip
-      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-$(python.version).zip
+      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-3.11.zip
       replaceExistingArchive: true
 
   - task: PublishBuildArtifacts@1
