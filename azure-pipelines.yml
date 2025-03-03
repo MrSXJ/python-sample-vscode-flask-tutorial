@@ -1,37 +1,21 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
-
 jobs:
-  - job: Singlejob
-    steps:
-    - task: UsePythonVersion@0
+- job: SingleJob
+  displayName: 'Single Job with Multiple Tasks'
+  steps:
+  - task: CmdLine@2
+    displayName: 'Task 1: Print Hello'
+    inputs:
+      script: echo 'Hello'
 
-      displayName: 'Use Python 3.11'
+  - task: CmdLine@2
+    displayName: 'Task 2: Print World'
+    inputs:
+      script: echo 'World'
 
-    - script: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-      displayName: 'Install dependencies'
-
-    - task: ArchiveFiles@2
-      displayName: 'Archive files'
-      inputs:
-        rootFolderOrFile: $(System.DefaultWorkingDirectory)
-        includeRootFolder: false
-        archiveType: zip
-        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-3.11.zip
-        replaceExistingArchive: true
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-
-    - script: |
-        pip install pytest pytest-azurepipelines
-        pytest
-      displayName: 'pytest'
+  - task: CmdLine@2
+    displayName: 'Task 3: Print Done'
+    inputs:
+      script: echo 'Done'
