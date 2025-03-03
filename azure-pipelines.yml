@@ -3,19 +3,8 @@ trigger:
 
 jobs:
 - job: SingleJob
-  displayName: 'Single Job with Multiple Tasks'
   steps:
-  - task: CmdLine@2
-    displayName: 'Task 1: Print Hello'
-    inputs:
-      script: echo 'Hello'
-
-  - task: CmdLine@2
-    displayName: 'Task 2: Print World'
-    inputs:
-      script: echo 'World'
-
-  - task: CmdLine@2
-    displayName: 'Task 3: Print Done'
-    inputs:
-      script: echo 'Done'
+  - script: echo 'This is step 1'
+    displayName: 'Step 1'
+  - script: echo 'This is step 2'
+    displayName: 'Step 2'
